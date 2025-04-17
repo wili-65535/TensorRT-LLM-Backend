@@ -223,7 +223,9 @@ def run_inference(triton_client,
                   exclude_input_in_output=False):
 
     try:
-        prompts = json.loads(prompt)
+        #prompts = json.loads(prompt)  # wili
+        if batch_inputs and isinstance(prompt, list):  # wili
+            prompts = prompt  # wili
     except:
         prompts = [prompt]
 

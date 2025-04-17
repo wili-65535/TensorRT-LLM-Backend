@@ -37,10 +37,9 @@ import torch
 # Mock pb_utils
 sys.modules["triton_python_backend_utils"] = MagicMock()
 
+import tensorrt_llm.bindings.executor as trtllm
 # Use PYTHONPATH=../inflight_batcher_llm/tensorrt_llm/1/
 from model import *
-
-import tensorrt_llm.bindings.executor as trtllm
 
 
 @dataclass

@@ -238,6 +238,7 @@ def run_speculative_inference(
     input_ids = prompt_input_ids
     last_input_ids = None
     draft_output_ids = None
+    step = 0
 
     while True:
 
@@ -283,7 +284,8 @@ def run_speculative_inference(
                 print(draft_seq_len)
 
             # Set the draft token and call the target model to generate up to num_draft_tokens + 1
-            draft_tokens = draft_output_ids[len(input_ids):draft_seq_len]
+            #draft_tokens = draft_output_ids[len(input_ids):draft_seq_len]  # wili
+            draft_tokens = draft_output_ids[:draft_seq_len]  # wili
 
             if verbose:
                 print("draft_tokens")
@@ -324,6 +326,7 @@ def run_speculative_inference(
         target_output_ids, seq_length, cum_log_probs, output_log_probs, context_logits, generation_logits = extract_trtllm_outputs(
             target_result)
 
+        step += 1
         if verbose:
             print("Target model output_ids")
             print(target_output_ids.tolist())
@@ -339,7 +342,8 @@ def run_speculative_inference(
         # Store the last iteration input_ids to check if EOS was encountered
         last_input_ids = input_ids
         # Update the input ids with new output_ids
-        input_ids = target_output_ids
+        #input_ids = target_output_ids  # wili
+        input_ids = np.concatenate([input_ids, target_output_ids])  # wili
 
         # Evaluate criteria to stop generation loop.
         # If we've hit or exceeded the max output length, should stop

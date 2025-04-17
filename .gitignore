@@ -10,3 +10,4 @@ build/
 *.onnx
 tmp/
 .idea
+triton_repo/

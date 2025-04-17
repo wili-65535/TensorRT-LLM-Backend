@@ -2,9 +2,8 @@ import json
 
 import torch
 import triton_python_backend_utils as pb_utils
-from torch import from_numpy
-
 from tensorrt_llm.runtime import ModelRunner, SamplingConfig
+from torch import from_numpy
 
 
 def mpi_comm():

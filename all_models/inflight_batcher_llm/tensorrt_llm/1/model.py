@@ -9,12 +9,11 @@ from threading import Lock, Thread
 from typing import Any, List
 
 import numpy as np
+import tensorrt_llm.bindings.executor as trtllm
 import torch
 import triton_python_backend_utils as pb_utils
 from torch import from_numpy
 from torch.utils.dlpack import from_dlpack
-
-import tensorrt_llm.bindings.executor as trtllm
 
 METRIC_TOTAL_OUTPUT_TOKENS = "total_output_tokens"
 METRIC_TOTAL_INPUT_TOKENS = "total_input_tokens"
